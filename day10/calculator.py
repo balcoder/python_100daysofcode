@@ -1,86 +1,57 @@
-# import art
-
-# print(art.logo)
-
-# def add(n1, n2):
-#     return n1 + n2
-
-# def subtract(n1, n2):
-#     return n1 - n2
-
-# def multiply(n1, n2):
-#     return n1 * n2
-
-# def divide(n1, n2):
-#     return n1 / n2
-
-# operations = {
-#     "+": "add",
-#     "-": "subtract",
-#     "*": "multiply",
-#     "/": "divide"
-#     }
-# num1 = int(input("What's the first number?: "))
-# num2 = int(input("What's the second number?: "))
-
-# # operation = ""
-# # for action in operations:
-# #     operation += action + " "
-# for action in operations:
-#     print(action)
-# operation_symbol = input("What type of operation do you want:\n")
-
-# calculation_function = operations[operation_symbol]
-# answer = calculation_function(num1, num2)
-
-# print(f"{num1} {operation_symbol} {num2} = {answer}")
+import art
 
 
-
-from art import logo
 
 def add(n1, n2):
-  return n1 + n2
+    return n1 + n2
 
 def subtract(n1, n2):
-  return n1 - n2
+    return n1 - n2
 
 def multiply(n1, n2):
-  return n1 * n2
+    return n1 * n2
 
 def divide(n1, n2):
-  return n1 / n2
+    return n1 / n2
 
 operations = {
-  "+": add,
-  "-": subtract,
-  "*": multiply,
-  "/": divide
+    "+": add,
+    "-": subtract,
+    "*": multiply,
+    "/": divide
 }
 
+operation = " ".join(operations.keys())
+
 def calculator():
-  print(logo)
-
+  print(art.logo)        
+  # Get user inputs
   num1 = float(input("What's the first number?: "))
-  for symbol in operations:
-    print(symbol)
-  should_continue = True
- 
-  while should_continue:
-    operation_symbol = input("Pick an operation: ")
-    num2 = float(input("What's the next number?: "))
-    calculation_function = operations[operation_symbol]
-    answer = calculation_function(num1, num2)
-    print(f"{num1} {operation_symbol} {num2} = {answer}")
+  operation_symbol = input(f"What type of operation ( {operation} ) do you want:\n")
 
-    if input(f"Type 'y' to continue calculating with {answer}, or type 'n' to start a new calculation: ") == 'y':
-      num1 = answer
+  more_operations = True
+  choice = ""
+  previous_answer = 0 
+  while more_operations:
+    if choice == 'y':
+      operation_symbol = input(f"What type of operation ( {operation} ) do you want:\n")
+      num1 = previous_answer     
+    num2 = float(input("What's the next number?: "))
+
+    calculation_function = operations.get(operation_symbol)
+    # if we have valid operation
+    if calculation_function:
+        answer = calculation_function(num1, num2)
+        previous_answer = answer
+        print(f"{num1} {operation_symbol} {num2} = {answer}")
     else:
-      should_continue = False
-      
-      calculator()
+        print("Invalid operation symbol. Please choose from: +, -, *, /")
+        more_operations = False
+        break
+    choice = input(f"Type 'y' to continue calculating with {answer}, or 'n' to exit.")
+    if choice == "n":
+        more_operations = False
+        calculator()
 
 calculator()
-
-
-
+      
