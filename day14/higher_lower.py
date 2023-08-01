@@ -1,26 +1,24 @@
+''' Higher Lower game using celebrity instagram followers'''
+from random import choice
 from art import logo_higher, logo_vs
 from followers import celebrity_instagram_data
-from random import choice
 
-# get 2 random celebs form data, store order of each as A and B 
-# each guess B becomes A and B gets new random celeb
-score = 0
-store = {} 
+
 def get_random_celeb():
     '''Gets a random celeb from dictionary and returns a list'''
     celeb_name, info = choice(list(celebrity_instagram_data.items()))
     return [celeb_name, info]
 
-def get_unique_celeb():
+
+def get_unique_celeb(store):
     ''' Gets a random celeb and checks to see if already in store. If not
-        keeps getting random until unique'''  
+    keeps getting random until unique'''
     while True:
         new_celeb = get_random_celeb()
         # check all names in store. If match new_celeb get new celeb
         if new_celeb not in store.values():
             return new_celeb
-           
-           
+
 
 def most_followers(store):
     '''Returns celeb with most followers '''
@@ -28,23 +26,23 @@ def most_followers(store):
         return "A"
     return "B"
 
-def compare_celebs(guess, store, score):    
-    # opposite = "B" if guess == "A" else "A"    
+def compare_celebs(guess, store, score):
+    '''Check if guess has most followers and return true or false'''
     if guess == most_followers(store):
         store.pop(guess)
         score += 1
-        store[guess] = get_unique_celeb()
-        return True        
+        store[guess] = get_unique_celeb(store)
+        return True
     else:
         return False
-        # print (f"Sorry that's the wrong answer. Final score: {score}")
 
 
-
-
-def play_game(store, score):
-    store["A"] = get_unique_celeb()
-    store["B"] = get_unique_celeb()
+def play_game():
+    ''' Play game of higher lower and loop until player gets one wrong'''
+    score = 0
+    store = {}
+    store["A"] = get_unique_celeb(store)
+    store["B"] = get_unique_celeb(store)
     player_right = True
 
     while player_right:
@@ -69,4 +67,4 @@ def play_game(store, score):
             player_right = False
             print (f"Sorry that's the wrong answer. Final score: {score}")
 
-play_game(store, score)
+play_game()
