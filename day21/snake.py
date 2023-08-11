@@ -21,7 +21,7 @@ class Snake:
             self.add_to_turtle(position)
 
     def add_to_turtle(self, position):
-        '''Add segment to snake'''
+        ''' Add segment to snake '''
         new_turtle = Turtle(shape="square")
         new_turtle.color('white')
         new_turtle.penup()
@@ -29,7 +29,7 @@ class Snake:
         self.turtles.append(new_turtle)
 
     def extend(self):
-        '''Extend snake by one segment'''
+        ''' Extend snake by one segment '''
         self.add_to_turtle(self.turtles[-1].position())
 
     def move(self):
@@ -41,21 +41,21 @@ class Snake:
         self.turtles[0].forward(MOVE_DISTANCE)
 
     def up(self):
-        ''' Move snake up if not moving down'''
+        ''' Move snake up if not moving down '''
         if self.head.heading() != DOWN:
             self.head.setheading(UP)
 
     def down(self):
-        ''' Move sanke down if not moving up'''
+        ''' Move sanke down if not moving up '''
         if self.head.heading() != UP:
             self.head.setheading(DOWN)
 
     def right(self):
-        ''' Move snake right if not moving left'''
+        ''' Move snake right if not moving left '''
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
 
     def left(self):
-        ''' Move sanke left if not moving right'''
+        ''' Move sanke left if not moving right '''
         if self.head.heading() != RIGHT:
             self.head.setheading(LEFT)
