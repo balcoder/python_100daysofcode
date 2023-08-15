@@ -31,6 +31,13 @@ class Snake:
     def extend(self):
         ''' Extend snake by one segment '''
         self.add_to_turtle(self.turtles[-1].position())
+    
+    def reset_snake(self):
+        for turtle in self.turtles:
+            turtle.goto(1000, 1000)
+        self.turtles.clear()
+        self.create_snake()
+        self.head = self.turtles[0]
 
     def move(self):
         ''' moves the snakes behind head based on head movement '''

@@ -5,8 +5,9 @@ from cars import Cars
 from my_turtle import MyTurtle
 from level import Level
 
-GAME_IN_PLAY = True
-CARS_SPEED = 1
+game_in_play = True
+car_speed = 1
+
 screen = Screen()
 screen.setup(600, 600)
 screen.title("Turtle Crossing")
@@ -22,17 +23,17 @@ screen.listen()
 
 
 
-while GAME_IN_PLAY:
+while game_in_play:
     screen.update()
-    cars.move_cars(CARS_SPEED)
+    cars.move_cars(car_speed)
     time.sleep(0.1)
     for car in cars.cars:
-        if ted.distance(car) < 10:
-            GAME_IN_PLAY = False
+        if ted.distance(car) < 14:
+            game_in_play = False
             level.game_over()
         elif ted.ycor() > 295:
             level.level += 1
-            CARS_SPEED += 0.2
+            car_speed += 0.2
             level.update_level()
             ted.move_home()
 

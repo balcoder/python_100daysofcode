@@ -23,8 +23,10 @@ screen.onkey(key="Right", fun=snake.right)
 # screen.onkey(key="c", fun=snake.clear)
 
 game_is_on = True
+scoreboard.update_scoreboard()
 while game_is_on:
     screen.update()
+    
     time.sleep(0.1)
     snake.move()
     # detect collision with food
@@ -36,13 +38,17 @@ while game_is_on:
 
     # detect collision with wall
     if (snake.head.xcor() > 298 or snake.head.xcor() < -298 or
-        snake.head.ycor() < -280 or snake.head.ycor() < -280):
-        game_is_on = False
-        scoreboard.end_game()
+        snake.head.ycor() > 280 or snake.head.ycor() < -280):
+        scoreboard.reset_game()
+        snake.reset_snake()
+        # game_is_on = False
+        # scoreboard.end_game()
 
     # Detect collision with tail
     for turtle in snake.turtles[1:]:
         if snake.head.distance(turtle) < 10:
-            game_is_on = False
-            scoreboard.end_game()
+            scoreboard.reset_game()
+            snake.reset_snake()
+            # game_is_on = False
+            # scoreboard.end_game()
 screen.exitonclick()
