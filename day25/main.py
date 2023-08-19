@@ -21,10 +21,7 @@ while game_is_on:
 
     # exit game on entering secret code (Exit)
     if answer_state == "Exit":
-        states_to_learn = []
-        for state in guess.data.state:
-            if state not in guess.correct_guess:
-                states_to_learn.append(state)
+        states_to_learn = [state for state in guess.data.state if state not in guess.correct_guess]        
         new_data = pd.DataFrame(states_to_learn)
         new_data.to_csv("day25/states_to_learn.csv")
         break
