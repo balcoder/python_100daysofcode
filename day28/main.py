@@ -1,5 +1,6 @@
+''' pomodoro timer gui in tkinter '''
 import math
-from tkinter import *
+import tkinter as tk
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -9,37 +10,33 @@ FONT_NAME = "Courier"
 WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
-reps = 0
+REPS = 0
 timer = None
 
 # ---------------------------- TIMER RESET ------------------------------- #
-
-
 def reset_pomodoro():
+    ''' reset the clock '''
     window.after_cancel(timer)
     tick_label.config(text="")
     timer_label.config(text="Timer", fg=GREEN)
     canvas.itemconfig(timer_text, text="00:00")
-    global reps
-    reps = 0
+    global REPS
+    REPS = 0
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
-
-
 def start_timer():
-
-    global reps
-    reps += 1
-
+    ''' start timer and change label based on which break/work session '''
+    global REPS
+    REPS += 1    
     work_sec = WORK_MIN * 60
     short_break_sec = SHORT_BREAK_MIN * 60
     long_break_sec = LONG_BREAK_MIN * 60
 
-    if reps % 8 == 0:
+    if REPS % 8 == 0:
         timer_label.config(text="Break 20 mins", fg=RED)
         count_down(long_break_sec)
-        reps = 0
-    elif reps % 2 == 0:
+        REPS = 0
+    elif REPS % 2 == 0:
         timer_label.config(text="Break 5 mins", fg=PINK)
         count_down(short_break_sec)
     else:
@@ -62,38 +59,36 @@ def count_down(count):
     else:
         start_timer()
         marks = ""
-        work_session_completed = math.floor(reps/2)
+        work_session_completed = math.floor(REPS/2)
         for _ in range(work_session_completed):
             marks += "✔"
         tick_label.config(text=marks)
 
 # ---------------------------- UI SETUP ------------------------------- #
-
-
-window = Tk()
+window = tk.Tk()
 window.title('Pomodoro')
 window.config(padx=100, pady=5, bg=YELLOW)
 
-canvas = Canvas(width=210, height=224, bg=YELLOW, highlightthickness=0)
-tomato_img = PhotoImage(file="day28/tomato.png")
+# add backgorund image and initialize timer
+canvas = tk.Canvas(width=210, height=224, bg=YELLOW, highlightthickness=0)
+tomato_img = tk.PhotoImage(file="day28/tomato.png")
 canvas.create_image(100, 112, image=tomato_img)
 timer_text = canvas.create_text(
     100, 130, text="00:00", font=(FONT_NAME, 35, "bold"), fill="white")
 canvas.grid(column=1, row=1)
 
-timer_label = Label(text="Timer", font=("Arial", 24), fg=GREEN, bg=YELLOW,)
+# labels
+timer_label = tk.Label(text="Timer", font=("Arial", 24), fg=GREEN, bg=YELLOW,)
 timer_label.grid(column=1, row=0)
-
-start_btn = Button(text="Start", command=start_timer,
-                   bg="white", bd=0, font=("Arial", 18))
-start_btn.grid(column=0, row=2)
-
-reset_btn = Button(text="Reset", command=reset_pomodoro,
-                   bg="white", bd=0, font=("Arial", 18))
-reset_btn.grid(column=2, row=2)
-
-tick_label = Label(text="", fg=GREEN, bg=YELLOW, font=("Arial", 18))
+tick_label = tk.Label(text="", fg=GREEN, bg=YELLOW, font=("Arial", 18))
 tick_label.grid(column=1, row=3)
 
+# buttons
+start_btn = tk.Button(text="Start", command=start_timer,
+                   bg="white", bd=0, font=("Arial", 18))
+start_btn.grid(column=0, row=2)
+reset_btn = tk.Button(text="Reset", command=reset_pomodoro,
+                   bg="white", bd=0, font=("Arial", 18))
+reset_btn.grid(column=2, row=2)
 
 window.mainloop()
