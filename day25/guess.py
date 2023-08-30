@@ -1,4 +1,5 @@
-''' Check if guess is in the 50_states and write to map '''
+''' Check if guess is in the 50_states and write to map
+    keep track of correct guess and number of correct answers '''
 import pandas
 
 DATA = pandas.read_csv("day25/50_states.csv")

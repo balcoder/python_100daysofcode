@@ -84,21 +84,28 @@ def search():
                 data = json.load(data_file)
         except FileNotFoundError:
             messagebox.showerror(
-            "No data file found. Have you save any passwords yet?"
+            "No data file found. Have you saved any passwords yet?"
             )
             return
         else:
-            with open("day29/data.json", 'r') as data_file:
-                data = json.load(data_file)
-                try:
-                    website_data = data[web]
-                except KeyError:                
-                    messagebox.showerror(title="Error",
-                         message=f"No password found for {web}")
-                else:
-                    messagebox.showinfo(title='Found Password',
-                        message=f'The website {web} password is\n {website_data["password"]}')                        
-
+            # try block is overkill so used if/else below instead
+            #
+            # try:
+            #     website_data = data[web]
+            # except KeyError:
+            #     messagebox.showerror(title="Error",
+            #             message=f"No password found for {web}")
+            # else:
+            #     messagebox.showinfo(title='Found Password',
+            #         message=f'The website {web} password is\n {website_data["password"]}')
+            if web in data:
+                email = data[web]["email"]
+                password = data[web]["password"]
+                messagebox.showinfo(title='Found Password',
+                     message=f'The website {web} email is\n {email} and password is {password}')
+            else:
+                messagebox.showinfo(title='No Password Found',
+                    message=f'No details for {web} exist')
         finally:
             website_input.delete(0, "end")
 
