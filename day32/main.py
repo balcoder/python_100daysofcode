@@ -25,10 +25,10 @@ month = now.month
 day = now.day
 
 # email details
-password= "mbklkgkojiujsfkz"
-my_email = "des.barrett.sub@gmail.com"
+password= ""
+my_email = ""
 host = "smtp.gmail.com"
-send_to = "des.barrett@gmail.com"
+send_to = ""
 message = f"Subject: Happy Birthday\n\n"
 
 # loop through birthday list, check if today date matches one on
