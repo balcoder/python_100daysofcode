@@ -1,5 +1,6 @@
 ''' pomodoro timer gui in tkinter '''
 import math
+import os
 import tkinter as tk
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -68,10 +69,11 @@ def count_down(count):
 window = tk.Tk()
 window.title('Pomodoro')
 window.config(padx=100, pady=5, bg=YELLOW)
-
+print(os.path.abspath('./tomato.png'))
 # add backgorund image and initialize timer
 canvas = tk.Canvas(width=210, height=224, bg=YELLOW, highlightthickness=0)
-tomato_img = tk.PhotoImage(file="day28/tomato.png")
+tomato_img_path = os.path.abspath('./tomato.png')
+tomato_img = tk.PhotoImage(file=tomato_img_path)
 canvas.create_image(100, 112, image=tomato_img)
 timer_text = canvas.create_text(
     100, 130, text="00:00", font=(FONT_NAME, 35, "bold"), fill="white")
