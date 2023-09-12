@@ -1,5 +1,6 @@
 ''' Get weather data from openweathermap.org '''
 import requests
+import os
 from twilio.rest import Client
 from api_key import API_KEY, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
 
