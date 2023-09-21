@@ -19,7 +19,7 @@ WEIGHT = 88.5
 HEIGHT = 177.8
 AGE = 50
 
-def get_workout_stats( exercise =input("What exercises did you do?")):
+def get_workout_stats( exercise=input("What exercises did you do?")):
     ''' given an exercise return stats in json format '''
     exercise_params ={
         "query":exercise,
