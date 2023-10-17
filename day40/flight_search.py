@@ -30,6 +30,7 @@ class FlightSearch:
             return data
 
         print("Request failed with status of: ", response.status_code)
+        return None
 
     def get_prices(self, departure_airport_code, destination, max_price: int):
         ''' given destination and max price return flight details of lowest price '''
