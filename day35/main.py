@@ -1,9 +1,13 @@
 ''' Get weather data from openweathermap.org '''
-import requests
 import os
+import requests
+from dotenv import load_dotenv
 from twilio.rest import Client
-from api_key import API_KEY, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
 
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
+TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
 BASE_URL = "https://api.openweathermap.org/data/2.5/onecall?"
 weather_params = {
     "lat":"51.683",
@@ -20,10 +24,10 @@ data = response.json()
 
 will_rain = False
 
-def bring_umbrella(data):
+def bring_umbrella(weather_data):
     ''' loop through weather data and send sms if it's going to rain '''
     global will_rain
-    weather_for_12 =  data['hourly'][:12]
+    weather_for_12 =  weather_data['hourly'][:12]
 
     for hour in weather_for_12:
         weather_condition_id = hour['weather'][0]['id']
