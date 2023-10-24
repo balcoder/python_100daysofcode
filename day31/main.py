@@ -7,8 +7,10 @@ import pandas as pd
 BACKGROUND_COLOR = "#B1DDC6"
 
 # get the data
+# check if first time and have words to learn
 if path.isfile("day31/words_to_learn.csv"):
     DATA = pd.read_csv("day31/words_to_learn.csv")
+# just starting so import all words to learn
 else:
     DATA = pd.read_csv("day31/french_words.csv")
 
