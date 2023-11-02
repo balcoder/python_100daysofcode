@@ -18,7 +18,7 @@ base_url = 'https://www.linkedin.com/jobs/search/?currentJobId=3743477069&f_WT=2
 geo_location = 'geoId=103667222&'
 job_keywords = '&keywords=full%20stack%20developer'
 location = '&location=County%20Cork%2C%20Ireland'
-end_url = '&origin=JOB_SEARCH_PAGE_JOB_FILTER&refresh=true' 
+end_url = '&origin=JOB_SEARCH_PAGE_JOB_FILTER&refresh=true'
 
 # login to linked in
 driver.get(f'{base_url}{geo_location}{job_keywords}{location}{end_url}')
