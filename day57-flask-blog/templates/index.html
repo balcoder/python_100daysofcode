@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body>
+    <header>
+        {% if name %}
+            <h1>Hello, {{name.title()}}</h1>
+        {% else %}
+            <h1>Hello World!</h1>
+        {% endif %}
+    </header>
+    <main>
+        {% if name %}
+            <h2>Probability that {{name}} is:{{gender_data['gender']}} is {{gender_data['probability']}}</h2>
+            <h2>{{name}} is probably {{age_data['age']}} years old.</h2>
+        {% else %}
+            <p>The year is {{year}}</p>
+        {% endif%}
+        <a href="{{url_for('blog')}}">Go to our Blog</a>
+    </main>
+    
+    <footer>
+        <h4>&copy;Copyright{{year}} Built by DBWebWorks</h4>
+    </footer>
+</body>
+</html>
