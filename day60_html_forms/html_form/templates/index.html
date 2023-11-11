@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Html Formst</title>
+  </head>
+  <body>
+    <h1>My form</h1>
+    <!-- action can use "action='/login'" or it can be dynamically created 
+    with url_for(function name) -->
+    <form action={{url_for('login')}} method="post">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Name" />
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+      />
+      <input type="submit" value="OK" />
+    </form>
+  </body>
+</html>
