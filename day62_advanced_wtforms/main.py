@@ -1,0 +1,62 @@
+''' Coffee website listing shops with power and wifi and ratings '''
+import os
+import csv
+from flask import Flask, render_template
+from flask_bootstrap import Bootstrap5
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, TimeField, SelectField
+from wtforms.validators import DataRequired, URL
+
+
+app = Flask(__name__)
+# secret key needed for Cross Site Request Forgery (CSRF)
+app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+Bootstrap5(app)
+
+
+class CafeForm(FlaskForm):
+    cafe = StringField('Cafe name', validators=[DataRequired()])
+    location_url = StringField(
+        'Location URL',  validators=[DataRequired(), URL(message="Not a valid URL")])
+    open_time = StringField('Open Time', validators=[DataRequired()])
+    close_time = StringField('Close Time', validators=[DataRequired()])
+    coffee_rating = SelectField(
+        'Coffee Rating', choices=[('✘', 0), ('☕️', '☕️'), ('☕️☕️', '☕️☕️'), ('☕️☕️☕️', '☕️☕️☕️'), ('☕️☕️☕️', '☕️☕️☕️')], validators=[DataRequired()])
+    wifi_rating = SelectField(
+        'Wifi Rating', choices=[('✘', 0), ('💪', '💪'), ('💪💪', '💪💪'), ('💪💪💪', '💪💪💪'), ('💪💪💪💪', '💪💪💪💪')], validators=[DataRequired()])
+    power_rating = SelectField(
+        'Power Outlets Rating', choices=[('✘', 0), ('🔌', '🔌'), ('🔌🔌', '🔌🔌'), ('🔌🔌🔌', '🔌🔌🔌'), ('🔌🔌🔌🔌', '🔌🔌🔌🔌')], validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+# all Flask routes below
+
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+@app.route('/add', methods=['GET', 'POST'])
+def add_cafe():
+    form = CafeForm()
+    if form.validate_on_submit():
+        row = f"\n{form.data['cafe']},{form.data['location_url']},{form.data['open_time']},{form.data['close_time']},{form.data['coffee_rating']},{form.data['wifi_rating']},{form.data['power_rating']}"
+
+        with open('./day62_advanced_wtforms/cafe-data.csv', 'a', newline='', encoding='utf-8') as csv_file:
+            # csv_file.write('\n')
+            csv_file.write(row)
+    return render_template('add.html', form=form)
+
+
+@app.route('/cafes')
+def cafes():
+    with open('./day62_advanced_wtforms/cafe-data.csv', newline='', encoding='utf-8') as csv_file:
+        csv_data = csv.reader(csv_file, delimiter=',')
+        list_of_rows = []
+        for row in csv_data:
+            list_of_rows.append(row)
+    return render_template('cafes.html', cafes=list_of_rows)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
