@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cafes</title>
+  </head>
+  <body>
+    {% for cafe in cafes %}
+    <p>
+      {{cafe.name}}<span style="margin-left: 10px"
+        ><a href="{{cafe.map_url}}">{{cafe.location}}</a></span
+      >
+    </p>
+    {% endfor%}
+  </body>
+</html>
