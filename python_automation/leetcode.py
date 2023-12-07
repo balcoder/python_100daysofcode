@@ -60,5 +60,21 @@ def middleNode(head):
         return head[num]
 
 
-middle = middleNode([1, 2, 3, 4, 5, 6])
-print(middle)
+# middle = middleNode([1, 2, 3, 4, 5, 6])
+# print(middle)
+
+def chek_anagram(s1, s2):
+    if len(s1) != len(s2):
+        return False
+    list_1 = list(s1)
+    list_2 = list(s2)
+    freq_1 = {}
+    for char in list_1:
+        if char in list_2:
+            freq_1[char] = 1
+        else:
+            return False
+    return freq_1
+
+
+print(chek_anagram('angered', 'enraged'))
